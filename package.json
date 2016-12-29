@@ -1,0 +1,16 @@
+{
+  "name": "@frenchex/ssh-config-upsert-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@frenchex/yargs-api-builder": "^1.0.0",
+    "ssh-config": "^1.0.0"
+  }
+}
