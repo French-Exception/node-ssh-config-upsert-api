@@ -23,6 +23,10 @@ module.exports = exports = (() => {
                         type: 'string',
                         describe: 'Prefix host'
                     },
+                    exec: {
+                        required: true,
+                        type: 'string'
+                    },
                     path: {
                         alias: 'p',
                         default: process.cwd(),
@@ -92,6 +96,7 @@ module.exports = exports = (() => {
 
                 function get_data_from_exec(exec, path) {
                     const Cp = require('child_process');
+                    const EventEmitter = require('events');
                     const emitter = new EventEmitter();
 
                     emitter.on('run', () => {
