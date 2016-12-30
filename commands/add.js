@@ -43,14 +43,12 @@ module.exports = exports = (() => {
                     ctxEmitter.emit('error', new Error('No .ssh/config file given'), 1);
                     return;
                 }
-                const utils = require('./../lib/utils');
+                const SshConfigReaderWriter = require('./../lib/ssh-config');
 
                 ctxEmitter
                     .on('ssh.config.file.load', () => {
-                        const SshConfigReaderWriter = require('./../lib/ssh-config');
-
                         SshConfigReaderWriter
-                            .read(ctxEmitter.context.file, )
+                            .read(ctxEmitter.context.file,)
                             .on('error', (err, fatal) => {
                                 ctxEmitter.emit('error', err, fatal);
                             })
@@ -111,7 +109,7 @@ module.exports = exports = (() => {
                             emitter.emit('done');
                         })
                         .on('error', (err) => {
-                            emitter.emit('err', err);
+                            emitter.emit('err', err, 1);
                         });
                 }
 
