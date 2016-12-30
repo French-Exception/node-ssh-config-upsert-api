@@ -14,11 +14,7 @@ module.exports = exports = (() => {
         {
             ApiRequestDescriptor: (config) => {
                 return {
-                    basename: {
-                        required: true,
-                        type: 'string'
-                    },
-                    machine: {
+                    host: {
                         required: true,
                         type: 'string'
                     },
