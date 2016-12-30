@@ -1,4 +1,4 @@
-module.exports = exports = (() => {
+    module.exports = exports = (() => {
 
     const ApiBuilder = require('@frenchex/yargs-api-builder');
 
@@ -13,6 +13,9 @@ module.exports = exports = (() => {
     return ApiBuilder(
         {
             ApiRequestDescriptor: (config) => {
+                const path = require('path');
+                const userHome = require('user-home');
+
                 return {
                     host: {
                         required: true,
@@ -27,6 +30,12 @@ module.exports = exports = (() => {
                         required: true,
                         default: false,
                         type: 'boolean'
+                    },
+                    file: {
+                        alias: 'f',
+                        describe: 'Ssh config file path',
+                        global: true,
+                        default: path.join(userHome, '.ssh', 'config')
                     }
                 }
             },
@@ -36,7 +45,7 @@ module.exports = exports = (() => {
                 ctxEmitter
                     .on('ssh.config.file.load', () => {
                         SshConfigReaderWriter
-                            .read(ctxEmitter.context.file,)
+                            .read(ctxEmitter.context.file)
                             .on('error', (err, fatal) => {
                                 ctxEmitter.emit('error', err, fatal);
                             })
@@ -47,7 +56,7 @@ module.exports = exports = (() => {
 
                     })
                     .on('ssh.config.file.loaded', (sshConfigObject) => {
-                        sshConfigObject.remove({Host: ctxEmitter.context.basename + '.' + ctxEmitter.context.machine});
+                        sshConfigObject.remove({Host: ctxEmitter.context.host});
 
                         if (ctxEmitter.context.dry || ctxEmitter.context.show) {
                             ctxEmitter.emit('print', require('ssh-config').stringify(sshConfigObject));
@@ -59,8 +68,9 @@ module.exports = exports = (() => {
                                     ctxEmitter.emit('error', err, fatal);
                                 })
                                 .on('done', () => {
-                                    ctxEmitter.emit('done');
-                                });
+                                    ctxEmitter.emit('done', {host: ctxEmitter.context.host, action: 'deleted'});
+                                })
+                                .emit('run');
                         }
                     })
                     .emit('ssh.config.file.load');

@@ -13,6 +13,9 @@ module.exports = exports = (() => {
     return ApiBuilder(
         {
             ApiRequestDescriptor: (config) => {
+                const path = require('path');
+                const userHome = require('user-home');
+
                 return {
                     prefix: {
                         alias: 'x',
@@ -34,6 +37,12 @@ module.exports = exports = (() => {
                         default: false,
                         alias: 's',
                         describe: 'Shows the generated ssh config file'
+                    },
+                    file: {
+                        alias: 'f',
+                        describe: 'Ssh config file path',
+                        global: true,
+                        default: path.join(userHome, '.ssh', 'config')
                     }
                 }
             },
@@ -48,7 +57,7 @@ module.exports = exports = (() => {
                 ctxEmitter
                     .on('ssh.config.file.load', () => {
                         SshConfigReaderWriter
-                            .read(ctxEmitter.context.file,)
+                            .read(ctxEmitter.context.file)
                             .on('error', (err, fatal) => {
                                 ctxEmitter.emit('error', err, fatal);
                             })
@@ -106,7 +115,7 @@ module.exports = exports = (() => {
 
                     writer_emitter
                         .on('done', () => {
-                            emitter.emit('done');
+                            emitter.emit('done', {action: 'added'});
                         })
                         .on('error', (err) => {
                             emitter.emit('err', err, 1);

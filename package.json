@@ -1,6 +1,6 @@
 {
   "name": "@frenchex/ssh-config-upsert-api",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "api.js",
   "scripts": {
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@frenchex/yargs-api-builder": "^1.0.0",
-    "ssh-config": "^1.0.0"
+    "ssh-config": "^1.0.0",
+    "user-home": "^2.0.0"
   }
 }
