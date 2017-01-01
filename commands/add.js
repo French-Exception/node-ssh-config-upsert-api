@@ -114,7 +114,7 @@ module.exports = exports = (() => {
                 }
 
                 function has_data(argv, data, sshConfigObject, emitter, SshConfigReaderWriter) {
-                    sshConfigObject = update_ssh_config_object(data, sshConfigObject, argv.prefix);
+                    sshConfigObject = update_ssh_config_object(data, sshConfigObject, argv.prefix, SshConfigReaderWriter.SshConfig);
                     const writer_emitter = SshConfigReaderWriter.write(argv.file, sshConfigObject, argv.dry);
                     if (argv.show) emitter.emit('print', data);
 
@@ -124,10 +124,11 @@ module.exports = exports = (() => {
                         })
                         .on('error', (err) => {
                             emitter.emit('err', err, 1);
-                        });
+                        })
+                        .emit('run');
                 }
 
-                function update_ssh_config_object(host_entry, sshConfigObject, SshConfig, prefix) {
+                function update_ssh_config_object(host_entry, sshConfigObject, prefix, SshConfig) {
                     let newHost = SshConfig.parse(host_entry);
 
                     newHost = newHost.map((entry) => {
