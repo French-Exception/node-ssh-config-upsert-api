@@ -1,10 +1,13 @@
 {
   "name": "@frenchex/ssh-config-upsert-api",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release.patch": "bumper --level patch --git -e \"npm publish\"",
+    "release.minor": "bumper --level minor --git -e \"npm publish\"",
+    "release.major": "bumper --level minor --git -e \"npm publish\""
   },
   "keywords": [],
   "author": "",
