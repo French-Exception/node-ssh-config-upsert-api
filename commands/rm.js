@@ -40,7 +40,7 @@ exports.Factory = function (SshConfigUpsertApiModule) {
                 }
             },
             ApiHandler: (ctxEmitter) => {
-                const SshConfigReaderWriter = require('./../lib/ssh-config');
+                const SshConfigReaderWriter = SshConfigUpsertApiModule.Libs.SshConfig;
 
                 ctxEmitter
                     .on('ssh.config.file.load', () => {
