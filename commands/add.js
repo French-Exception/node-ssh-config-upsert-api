@@ -1,6 +1,6 @@
-module.exports = exports = (() => {
+exports.Factory = function (HvagrantApiModule) {
+    const ApiBuilder = HvagrantApiModule.Dependencies.Get('@frenchex/yargs-api-builder');
 
-    const ApiBuilder = require('@frenchex/yargs-api-builder');
 
     /**
      *  return {
@@ -150,4 +150,4 @@ module.exports = exports = (() => {
             }
         }
     )
-})();
+};
