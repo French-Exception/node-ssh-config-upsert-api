@@ -1,5 +1,5 @@
-exports.Factory = function (HvagrantApiModule) {
-    const ApiBuilder = HvagrantApiModule.Dependencies.Get('@frenchex/yargs-api-builder');
+exports.Factory = function (SshConfigUpsertApiModule) {
+    const ApiBuilder = SshConfigUpsertApiModule.Dependencies.Get('@frenchex/yargs-api-builder');
 
 
     /**
@@ -13,8 +13,8 @@ exports.Factory = function (HvagrantApiModule) {
     return ApiBuilder(
         {
             ApiRequestDescriptor: (config) => {
-                const path = require('path');
-                const userHome = require('user-home');
+                const path = SshConfigUpsertApiModule.Dependencies.Get('path');
+                const userHome = SshConfigUpsertApiModule.Dependencies.Get('user-home');
 
                 return {
                     prefix: {
@@ -56,7 +56,7 @@ exports.Factory = function (HvagrantApiModule) {
                     ctxEmitter.emit('error', new Error('No .ssh/config file given'), 1);
                     return;
                 }
-                const SshConfigReaderWriter = require('./../lib/ssh-config');
+                const SshConfigReaderWriter = SshConfigUpsertApiModule.Libs.SshConfig;
 
                 ctxEmitter
                     .on('ssh.config.file.load', () => {
@@ -95,8 +95,8 @@ exports.Factory = function (HvagrantApiModule) {
 
 
                 function get_data_from_exec(exec, path) {
-                    const Cp = require('child_process');
-                    const EventEmitter = require('events');
+                    const Cp = SshConfigUpsertApiModule.Dependencies.Get('child_process');
+                    const EventEmitter = SshConfigUpsertApiModule.Dependencies.Get('events');
                     const emitter = new EventEmitter();
 
                     emitter.on('run', () => {

@@ -1,5 +1,5 @@
-exports.Factory = function (HvagrantApiModule) {
-    const ApiBuilder = HvagrantApiModule.Dependencies.Get('@frenchex/yargs-api-builder');
+exports.Factory = function (SshConfigUpsertApiModule) {
+    const ApiBuilder = SshConfigUpsertApiModule.Dependencies.Get('@frenchex/yargs-api-builder');
 
 
     /**
@@ -13,8 +13,8 @@ exports.Factory = function (HvagrantApiModule) {
     return ApiBuilder(
         {
             ApiRequestDescriptor: (config) => {
-                const path = require('path');
-                const userHome = require('user-home');
+                const path = SshConfigUpsertApiModule.Dependencies.Get('path');
+                const userHome = SshConfigUpsertApiModule.Dependencies.Get('user-home');
 
                 return {
                     host: {
@@ -59,7 +59,7 @@ exports.Factory = function (HvagrantApiModule) {
                         sshConfigObject.remove({Host: ctxEmitter.context.host});
 
                         if (ctxEmitter.context.dry || ctxEmitter.context.show) {
-                            ctxEmitter.emit('print', require('ssh-config').stringify(sshConfigObject));
+                            ctxEmitter.emit('print', SshConfigUpsertApiModule.Dependencies.Get('ssh-config').stringify(sshConfigObject));
                             ctxEmitter.context.dry && ctxEmitter.emit('done');
                         } else {
                             const writeEmitter = SshConfigReaderWriter.write(ctxEmitter.context.file, sshConfigObject);

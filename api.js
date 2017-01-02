@@ -14,7 +14,11 @@ exports.Dependencies = (() => {
     };
 })();
 
+exports.Libs = {
+    SshConfig: require('./lib/ssh-config').Factory(exports)
+};
+
 exports.Commands = {
     Add: require('./commands/add').Factory(exports),
     Rm: require('./commands/rm').Factory(exports),
-}
+};
