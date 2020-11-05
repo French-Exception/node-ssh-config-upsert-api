@@ -1,15 +1,14 @@
 {
   "name": "@frenchex/ssh-config-upsert-api",
   "version": "1.2.0",
-  "description": "",
+  "description": "Tiny api contract to upsert ssh hosts info in config",
   "main": "api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "release.patch": "bumper --level patch --git -e \"npm publish\"",
     "release.minor": "bumper --level minor --git -e \"npm publish\"",
     "release.major": "bumper --level minor --git -e \"npm publish\""
   },
-  "keywords": [],
+  "keywords": ["ssh", "upsert", "api"],
   "author": "",
   "license": "ISC",
   "dependencies": {
